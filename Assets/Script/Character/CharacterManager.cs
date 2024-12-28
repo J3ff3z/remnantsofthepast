@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class CharacterManager : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class CharacterManager : MonoBehaviour
     private float defaultJumpingForce;
 
     private CharacterController controller;
-    private Vector2 m_Move;
+    private float m_Move;
 
     private float jumpForce;
 
@@ -22,12 +23,12 @@ public class CharacterManager : MonoBehaviour
         controller = GetComponent<CharacterController>();
     }
 
-    public void OnMove(InputValue value)
+    public void OnMove(InputAction.CallbackContext context)
     {
-        m_Move = value.Get<Vector2>();
+        m_Move = context.ReadValue<float>();
     }
 
-    public void OnJump(InputValue value)
+    public void OnJump()
     {
         if (controller.isGrounded)
         {
@@ -35,11 +36,36 @@ public class CharacterManager : MonoBehaviour
         }
     }
 
+    public void OnGrab(InputAction.CallbackContext context)
+    {
+        if (context.canceled)
+        {
+            Debug.Log("Drop");
+            return;
+        }
+        if (context.performed)
+        {
+            Debug.Log("Grab");
+        }
+    }
+
+    public void OnInteract()
+    {
+
+    }
+
+    public void OnClean()
+    {
+
+    }
+
+
+
     private void Update()
     {
         DecreasingForce();
 
-        Vector2 movingVector = new Vector2(m_Move.x * Time.deltaTime * speed, (-gravity + jumpForce )* Time.deltaTime);
+        Vector2 movingVector = new Vector2(m_Move * Time.deltaTime * speed, (-gravity + jumpForce )* Time.deltaTime);
 
         controller.Move(movingVector);
     }
