@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 8cac2fa7b8d25124bbe781d2f5b3d432
+guid: 6163ca6b0ae62fa4db9647438b079e6c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5325016204767357785
-    second: drapeau 1_0
+      213: -5218189099375632873
+    second: BoxBloc_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: drapeau 1_0
+      name: BoxBloc_0
       rect:
         serializedVersion: 2
-        x: 26
-        y: 9
-        width: 205
-        height: 991
+        x: 2
+        y: 0
+        width: 68
+        height: 70
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 7a494a399fdb916b0800000000000000
-      internalID: -5325016204767357785
+      spriteID: 71e56e849a44597b0800000000000000
+      internalID: -5218189099375632873
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      drapeau 1_0: -5325016204767357785
+      BoxBloc_0: -5218189099375632873
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
