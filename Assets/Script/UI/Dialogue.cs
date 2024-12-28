@@ -10,9 +10,9 @@ using UnityEngine.InputSystem;
 //S'active au dessus du personnage quand on s'en approche
 public class Dialogue : MonoBehaviour
 {
-    public TextMeshProUGUI textComponent;
-    public string[] lines;
-    public float textSpeed;
+    [SerializeField] private TextMeshProUGUI textComponent;
+    [SerializeField] private string[] lines;
+    [SerializeField] private float textSpeed;
 
     private int index;
     private bool coroutineEnCours = false;
