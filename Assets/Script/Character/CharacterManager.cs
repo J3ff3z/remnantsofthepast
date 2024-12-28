@@ -2,12 +2,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class CharacterManager : MonoBehaviour
+public class CharacterManager : PhysicElement
 {
-    [SerializeField]
-    private float gravity = 9.8f;
-    [SerializeField]
-    private float speed = 2f;
     [SerializeField]
     private float decreaseJumpingForce;
     [SerializeField]
@@ -26,6 +22,16 @@ public class CharacterManager : MonoBehaviour
     public void OnMove(InputAction.CallbackContext context)
     {
         m_Move = context.ReadValue<float>();
+        if(m_Move < 0)
+        {
+            GrabManager.Instance.direction = -1;
+            transform.rotation = Quaternion.Euler(0,180,0);
+        }
+        if(m_Move > 0)
+        {
+            GrabManager.Instance.direction = 1;
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
     }
 
     public void OnJump()
@@ -38,14 +44,13 @@ public class CharacterManager : MonoBehaviour
 
     public void OnGrab(InputAction.CallbackContext context)
     {
-        if (context.canceled)
-        {
-            Debug.Log("Drop");
-            return;
-        }
         if (context.performed)
         {
-            Debug.Log("Grab");
+            GrabManager.Instance.OnGrab();
+        }
+        if (context.canceled)
+        {
+            GrabManager.Instance.OnDrop();
         }
     }
 
