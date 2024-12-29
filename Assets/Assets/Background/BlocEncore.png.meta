@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 0f53ca63eec9a3a439a26ed1e0fc8a3e
+guid: 5a822be9bf5fa274398769bb8f0fed1c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4406807336444809787
-    second: TUYAU_0
+      213: -8984866174523611509
+    second: BlocEncore_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: TUYAU_0
+      name: BlocEncore_0
       rect:
         serializedVersion: 2
-        x: 8
-        y: 10
-        width: 132
-        height: 147
+        x: 1
+        y: 0
+        width: 69
+        height: 70
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b32d06a9cef182d30800000000000000
-      internalID: 4406807336444809787
+      spriteID: b86e81171d75f4380800000000000000
+      internalID: -8984866174523611509
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      TUYAU_0: 4406807336444809787
+      BlocEncore_0: -8984866174523611509
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
