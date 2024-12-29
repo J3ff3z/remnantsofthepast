@@ -81,7 +81,7 @@ public class CharacterManager : PhysicElement
 
     void FixedUpdate()
     {
-        Vector3 movingVector = new Vector3(m_Move * Time.fixedDeltaTime * speed, (-gravity + jumpForce) * Time.fixedDeltaTime,0);
+        Vector3 movingVector = new Vector3(m_Move * Time.fixedDeltaTime * speed, jumpForce * Time.fixedDeltaTime,0);
 
         controller.MovePosition(movingVector + transform.position);
     }

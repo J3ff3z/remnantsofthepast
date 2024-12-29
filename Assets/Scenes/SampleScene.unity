@@ -1321,6 +1321,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2495157333837107874, guid: 188fa761a7b55874c8ea197e79935cad, type: 3}
+      propertyPath: m_Constraints
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 3330830852094277527, guid: 188fa761a7b55874c8ea197e79935cad, type: 3}
       propertyPath: m_Name
       value: Corpse
@@ -1340,6 +1344,10 @@ PrefabInstance:
     - target: {fileID: 6553239363675403480, guid: 188fa761a7b55874c8ea197e79935cad, type: 3}
       propertyPath: m_Center.y
       value: 0.015225202
+      objectReference: {fileID: 0}
+    - target: {fileID: 7196354833981439520, guid: 188fa761a7b55874c8ea197e79935cad, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7628401459237337616, guid: 188fa761a7b55874c8ea197e79935cad, type: 3}
       propertyPath: m_LocalPosition.x

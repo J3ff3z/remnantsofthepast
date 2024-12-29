@@ -20,11 +20,15 @@ public class GroundManager : MonoBehaviour
     private void Update()
     {
         isGrounded = false;
-        foreach(Collider2D collider in Physics2D.OverlapCircleAll(new Vector2(transform.position.x, transform.position.y), radius))
+        foreach (Collider2D collider in Physics2D.OverlapCircleAll(new Vector2(transform.position.x, transform.position.y), radius))
         {
             if(!collider.gameObject.CompareTag("Player"))
             {
                 isGrounded = true;
+            }
+            if (collider.gameObject.layer == 7) {
+                Debug.Log("Collide");
+                Physics2D.IgnoreCollision(collider, transform.parent.GetComponent<Collider2D>(), false);
             }
         }
     }
