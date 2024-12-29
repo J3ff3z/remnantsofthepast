@@ -29,11 +29,12 @@ public class Dialogue : MonoBehaviour
         textComponent.text = "";
     }
 
-
-    private void Update()
+    public void OnInteract()
     {
-        //A MODIFIER
-        if (Input.GetKeyDown(KeyCode.Space) && !coroutineEnCours) NextLine();
+        if (!coroutineEnCours)
+        {
+            NextLine();
+        }
     }
 
 
