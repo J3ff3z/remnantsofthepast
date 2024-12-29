@@ -2,12 +2,16 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class CharacterManager : PhysicElement
+public class CharacterManager : MonoBehaviour
 {
+    [SerializeField]
+    private float gravity;
     [SerializeField]
     private float decreaseJumpingForce;
     [SerializeField]
     private float defaultJumpingForce;
+    [SerializeField]
+    private int speed;
 
     private Rigidbody2D controller;
     private float m_Move;
@@ -15,11 +19,13 @@ public class CharacterManager : PhysicElement
     private float jumpForce;
 
     public Dialogue DialogueManager;
+    private bool isJumping = false;
 
     private static CharacterManager instance;
     public static CharacterManager Instance => instance;
     private void Awake()
     {
+        Application.targetFrameRate = 30;
         controller = GetComponent<Rigidbody2D>();
         instance = this;
     }
@@ -41,8 +47,9 @@ public class CharacterManager : PhysicElement
 
     public void OnJump()
     {
-        if (GroundManager.Instance.isGrounded)
+        if (GroundManager.Instance.isGrounded && !isJumping)
         {
+            isJumping = true;
             jumpForce = defaultJumpingForce;
         }
     }
@@ -72,18 +79,14 @@ public class CharacterManager : PhysicElement
         GameManager.Instance.CleanCorpse();
     }
 
-
-
-    private void Update()
-    {
-        DecreasingForce();
-    }
-
     void FixedUpdate()
     {
-        Vector3 movingVector = new Vector3(m_Move * Time.fixedDeltaTime * speed, jumpForce * Time.fixedDeltaTime,0);
-
-        controller.MovePosition(movingVector + transform.position);
+        DecreasingForce();
+        Vector3 movingVector = new Vector3(m_Move * Time.fixedDeltaTime * speed, (jumpForce-gravity) * Time.fixedDeltaTime,0);
+        if (movingVector != Vector3.zero)
+        {
+            controller.MovePosition(movingVector + transform.position);
+        }
     }
 
     public void Restart(Vector3 position)
@@ -96,6 +99,10 @@ public class CharacterManager : PhysicElement
         if(jumpForce > 0)
         {
             jumpForce -= decreaseJumpingForce ;
+        }
+        else
+        {
+            isJumping = false;
         }
     }
 
