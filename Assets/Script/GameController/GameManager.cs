@@ -38,4 +38,9 @@ public class GameManager : MonoBehaviour
         corpseList.Remove(corpse);
         Destroy(corpse);
     }
+
+    public void SwitchSavePoint(Vector2 position)
+    {
+        transform.GetChild(0).position = position;
+    }
 }
