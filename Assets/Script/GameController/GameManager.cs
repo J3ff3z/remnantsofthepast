@@ -22,8 +22,6 @@ public class GameManager : MonoBehaviour
         GameObject newCorpse = Instantiate(corpsePrefab);
         newCorpse.transform.position = _currentPosition;
         corpseList.Add(newCorpse);
-        Debug.Log(startPoint
-            .transform.position.ToString());
         CharacterManager.Instance.Restart(startPoint.transform.position);
     }
 
