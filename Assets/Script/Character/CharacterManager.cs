@@ -9,7 +9,7 @@ public class CharacterManager : PhysicElement
     [SerializeField]
     private float defaultJumpingForce;
 
-    private Rigidbody controller;
+    private Rigidbody2D controller;
     private float m_Move;
 
     private float jumpForce;
@@ -20,7 +20,7 @@ public class CharacterManager : PhysicElement
     public static CharacterManager Instance => instance;
     private void Awake()
     {
-        controller = GetComponent<Rigidbody>();
+        controller = GetComponent<Rigidbody2D>();
         instance = this;
     }
 

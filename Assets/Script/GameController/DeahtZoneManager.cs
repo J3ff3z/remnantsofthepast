@@ -2,12 +2,13 @@ using UnityEngine;
 
 public class DeahtZoneManager : MonoBehaviour
 {
-    void OnTriggerEnter(Collider other)
+    void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log("Trigger");
-        if(other.gameObject.tag == "Player")
+        if(other.gameObject.CompareTag("Player"))
         {
             GameManager.Instance.DieHere(other.transform.position);
         }
     }
+
 }
