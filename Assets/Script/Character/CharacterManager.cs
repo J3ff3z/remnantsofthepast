@@ -9,7 +9,7 @@ public class CharacterManager : PhysicElement
     [SerializeField]
     private float defaultJumpingForce;
 
-    private CharacterController controller;
+    private Rigidbody2D controller;
     private float m_Move;
 
     private float jumpForce;
@@ -20,7 +20,7 @@ public class CharacterManager : PhysicElement
     public static CharacterManager Instance => instance;
     private void Awake()
     {
-        controller = GetComponent<CharacterController>();
+        controller = GetComponent<Rigidbody2D>();
         instance = this;
     }
 
@@ -41,7 +41,7 @@ public class CharacterManager : PhysicElement
 
     public void OnJump()
     {
-        if (controller.isGrounded)
+        if (GroundManager.Instance.isGrounded)
         {
             jumpForce = defaultJumpingForce;
         }
@@ -66,7 +66,7 @@ public class CharacterManager : PhysicElement
             DialogueManager.OnInteract();
         }
     }
-
+    
     public void OnClean()
     {
         GameManager.Instance.CleanCorpse();
@@ -77,17 +77,18 @@ public class CharacterManager : PhysicElement
     private void Update()
     {
         DecreasingForce();
+    }
 
-        Vector2 movingVector = new Vector2(m_Move * Time.deltaTime * speed, (-gravity + jumpForce )* Time.deltaTime);
+    void FixedUpdate()
+    {
+        Vector3 movingVector = new Vector3(m_Move * Time.fixedDeltaTime * speed, jumpForce * Time.fixedDeltaTime,0);
 
-        controller.Move(movingVector);
+        controller.MovePosition(movingVector + transform.position);
     }
 
     public void Restart(Vector3 position)
     {
-        controller.enabled = false;
         transform.position = position;
-        controller.enabled = true;
     }
 
     void DecreasingForce()
@@ -97,4 +98,5 @@ public class CharacterManager : PhysicElement
             jumpForce -= decreaseJumpingForce ;
         }
     }
+
 }

@@ -7,14 +7,14 @@ public class GrabManager : MonoBehaviour
 {
     public int direction =1;
 
-    private bool canGrab;
+    public bool canGrab;
     [SerializeField]
     private float radius =0.45f;
     [SerializeField]
     private string grabbableTag;
 
 
-    private Collider[] colliders;
+    private Collider2D[] colliders;
     private GameObject grabbableObject;
     [SerializeField]
     private GameObject grabbedObject;
@@ -25,15 +25,15 @@ public class GrabManager : MonoBehaviour
 
     private void Awake()
     {
-        colliders = new Collider[2];
+        colliders = new Collider2D[2];
 
         instance = this;
     }
 
     private void Update()
     {
-        if (Physics.OverlapSphere(transform.position, radius).Length != colliders.Length) {
-            colliders = Physics.OverlapSphere(transform.position, radius);
+        if (Physics2D.OverlapCircleAll(transform.position, radius).Length != colliders.Length) {
+            colliders = Physics2D.OverlapCircleAll(new Vector2(transform.position.x, transform.position.y), radius);
             Trigger();
         }
         if (grabbedObject != null)
@@ -50,7 +50,7 @@ public class GrabManager : MonoBehaviour
     private void Trigger()
     {
         canGrab = false;
-        foreach (Collider collider in colliders)
+        foreach (Collider2D collider in colliders)
         {
             if (collider.gameObject.tag == grabbableTag)
             {

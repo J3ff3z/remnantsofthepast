@@ -4,7 +4,7 @@ public class PNJManager : MonoBehaviour
 {
     [SerializeField] GameObject customDialogue;
 
-    void OnTriggerEnter(Collider other)
+    void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log("Trigger");
         if (other.gameObject.tag == "Player")
@@ -14,7 +14,7 @@ public class PNJManager : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    private void OnTriggerExit2D(Collider2D other)
     {
         customDialogue.SetActive(false);
         CharacterManager.Instance.DialogueManager = null;

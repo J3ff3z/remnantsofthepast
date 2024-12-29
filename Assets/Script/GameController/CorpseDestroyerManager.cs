@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class CorpseDestroyerManager : MonoBehaviour
 {
-    void OnTriggerEnter(Collider other)
+    void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log("Trigger");
-        if (other.gameObject.tag == "Grabbable")
+        if (other.gameObject.CompareTag("Grabbable"))
         {
             GameManager.Instance.CleanCorpse(other.gameObject);
         }
