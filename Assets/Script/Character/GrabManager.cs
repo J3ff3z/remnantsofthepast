@@ -41,11 +41,6 @@ public class GrabManager : MonoBehaviour
             grabbedObject.transform.position = transform.parent.position;
         }
     }
-    void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawSphere(transform.position, radius);
-    }
 
     private void Trigger()
     {
@@ -67,25 +62,16 @@ public class GrabManager : MonoBehaviour
         {
             grabbedObject = grabbableObject;
             grabbedObject.transform.position = transform.parent.position;
-            grabbedObject.layer = LayerMask.NameToLayer("CorpseGrabbed");
         }
     }
 
     public void OnDrop()
     {
-        if (canGrab)
+        if (grabbedObject != null)
         {
-            grabbedObject.GetComponent<CorpsePhysicManager>().Throw();
-            StartCoroutine(Untrigger(grabbedObject));
+            grabbedObject.GetComponent<CorpsePhysicManager>().Throw(direction);
             grabbedObject = null;
             canGrab = false;
         }
-    }
-
-    IEnumerator Untrigger(GameObject go)
-    {
-        yield return new WaitForSeconds(0.5f);
-        go.layer = LayerMask.NameToLayer("Default");
-        //grabbedObject.GetComponent<Collider>().isTrigger = false;
     }
 }
