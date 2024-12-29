@@ -32,4 +32,10 @@ public class GameManager : MonoBehaviour
         foreach (GameObject corpse in corpseList) { Destroy(corpse); }
         corpseList.Clear();
     }
+
+    public void CleanCorpse(GameObject corpse)
+    {
+        corpseList.Remove(corpse);
+        Destroy(corpse);
+    }
 }
