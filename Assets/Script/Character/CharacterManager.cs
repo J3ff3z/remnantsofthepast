@@ -14,9 +14,14 @@ public class CharacterManager : PhysicElement
 
     private float jumpForce;
 
+    public Dialogue DialogueManager;
+
+    private static CharacterManager instance;
+    public static CharacterManager Instance => instance;
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
+        instance = this;
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -56,12 +61,15 @@ public class CharacterManager : PhysicElement
 
     public void OnInteract()
     {
-
+        if (DialogueManager != null)
+        {
+            DialogueManager.OnInteract();
+        }
     }
 
     public void OnClean()
     {
-
+        GameManager.Instance.CleanCorpse();
     }
 
 
@@ -73,6 +81,13 @@ public class CharacterManager : PhysicElement
         Vector2 movingVector = new Vector2(m_Move * Time.deltaTime * speed, (-gravity + jumpForce )* Time.deltaTime);
 
         controller.Move(movingVector);
+    }
+
+    public void Restart(Vector3 position)
+    {
+        controller.enabled = false;
+        transform.position = position;
+        controller.enabled = true;
     }
 
     void DecreasingForce()
