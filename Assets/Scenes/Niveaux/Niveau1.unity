@@ -38643,7 +38643,7 @@ Transform:
   m_GameObject: {fileID: 1656921598}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 19.09, y: 0.06, z: -10}
+  m_LocalPosition: {x: 63.5, y: 3.42, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -38662,15 +38662,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraZonePoints:
-  - {x: -3.55, y: 0, z: 0}
-  - {x: -3.55, y: 3.6, z: 0}
-  - {x: 61, y: 3.6, z: 0}
-  - {x: 61, y: 0, z: 0}
-  - {x: 38, y: 0, z: 0}
-  - {x: 34, y: 1.5, z: 0}
-  - {x: 23.5, y: 1.5, z: 0}
-  - {x: 19, y: 0, z: 0}
-  - {x: -3.55, y: 0, z: 0}
+  - {x: -6, y: 0, z: -10}
+  - {x: -6, y: 3.5, z: -10}
+  - {x: 63, y: 0, z: -10}
+  - {x: 63, y: 3.5, z: -10}
 --- !u!4 &1657758680 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5557488986864841466, guid: 4e7eacbb3890f4d468c911cb4b0fbf9e, type: 3}
