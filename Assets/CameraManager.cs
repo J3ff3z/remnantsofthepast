@@ -146,5 +146,4 @@ public class CameraManager : MonoBehaviour
 
         DestroyImmediate(m);
     }
-
 }
