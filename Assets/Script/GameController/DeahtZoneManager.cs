@@ -3,15 +3,12 @@ using UnityEngine;
 
 public class DeahtZoneManager : AudioMonoBehaviour
 {
-    public bool hasDie = false;
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Player") && !hasDie)
+        if (other.gameObject.CompareTag("Player"))
         {
-            hasDie = true;
             GameManager.Instance.DieHere(other.transform.position);
-            StartCoroutine(ResetDeath());
             PlaySound();
             return;
         }
@@ -21,12 +18,6 @@ public class DeahtZoneManager : AudioMonoBehaviour
             other.GetComponent<SpawnerManager>().Restart();
             return;
         }
-    }
-
-    IEnumerator ResetDeath()
-    {
-        yield return new WaitForSeconds(0.5f);
-        hasDie = false;
     }
 
 }
