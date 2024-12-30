@@ -440,7 +440,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 0.05
-  isGrounded: 0
+  isGrounded: 1
 --- !u!1 &8089488133913905772
 GameObject:
   m_ObjectHideFlags: 0
