@@ -1,12 +1,9 @@
 using System.Collections;
 using UnityEngine;
 
-public class DeahtZoneManager : MonoBehaviour
+public class DeahtZoneManager : AudioMonoBehaviour
 {
     public bool hasDie = false;
-
-
-
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -15,6 +12,7 @@ public class DeahtZoneManager : MonoBehaviour
             hasDie = true;
             GameManager.Instance.DieHere(other.transform.position);
             StartCoroutine(ResetDeath());
+            PlaySound();
             return;
         }
         if (other.gameObject.CompareTag("Spawner"))
