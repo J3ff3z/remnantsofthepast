@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class VictoryManager : MonoBehaviour
+public class VictoryManager : AudioMonoBehaviour
 {
     [SerializeField]
     public int sceneLoad;
@@ -14,13 +14,19 @@ public class VictoryManager : MonoBehaviour
         {
             Debug.Log("Win");
             DontDestroyOnLoad(GameManager.Instance);
+            PlaySound();
             StartCoroutine(ChangeScene());
         }
     }
 
     IEnumerator ChangeScene()
     {
-        yield return new WaitForSeconds(2);
-        SceneManager.LoadScene(sceneLoad);
+        yield return new WaitForSeconds(2.5f);
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(0);
+
+        while (!asyncLoad.isDone)
+        {
+            yield return null;
+        }
     }
 }
