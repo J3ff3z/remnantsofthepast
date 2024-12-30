@@ -10,11 +10,18 @@ public class DeahtZoneManager : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.gameObject.CompareTag("Player") && !hasDie)
+        if (other.gameObject.CompareTag("Player") && !hasDie)
         {
             hasDie = true;
             GameManager.Instance.DieHere(other.transform.position);
             StartCoroutine(ResetDeath());
+            return;
+        }
+        if (other.gameObject.CompareTag("Spawner"))
+        {
+            GameManager.Instance.DieHere(other.transform.position, false);
+            other.GetComponent<SpawnerManager>().Restart();
+            return;
         }
     }
 

@@ -17,12 +17,15 @@ public class GameManager : MonoBehaviour
         corpseList = new List<GameObject>();
     }
 
-    public void DieHere(Vector3 _currentPosition)
+    public void DieHere(Vector3 _currentPosition, bool isCharac = true)
     {
         GameObject newCorpse = Instantiate(corpsePrefab);
         newCorpse.transform.position = _currentPosition;
         corpseList.Add(newCorpse);
-        CharacterManager.Instance.Restart(savePoint.transform.position);
+        if (isCharac)
+        {
+            CharacterManager.Instance.Restart(savePoint.transform.position);
+        }
     }
 
     public void CleanCorpse()
@@ -39,6 +42,6 @@ public class GameManager : MonoBehaviour
 
     public void SwitchSavePoint(Vector2 position)
     {
-        savePoint.transform.position = position+Vector2.up;
+        savePoint.transform.position = position;
     }
 }
