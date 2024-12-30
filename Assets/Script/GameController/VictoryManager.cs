@@ -21,6 +21,7 @@ public class VictoryManager : AudioMonoBehaviour
 
     IEnumerator ChangeScene()
     {
+        TransitionManager.Instance.EndTransition();
         yield return new WaitForSeconds(2.5f);
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(0);
 

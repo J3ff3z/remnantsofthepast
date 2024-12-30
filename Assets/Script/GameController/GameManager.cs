@@ -20,6 +20,10 @@ public class GameManager : MonoBehaviour
         instance = this;
         corpseList = new List<GameObject>();
     }
+    private void Start()
+    {
+        TransitionManager.Instance.StartTransition();
+    }
 
     public void DieHere(Vector3 _currentPosition, bool isCharac = true)
     {
