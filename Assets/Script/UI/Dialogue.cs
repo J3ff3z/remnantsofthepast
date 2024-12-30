@@ -16,7 +16,10 @@ public class Dialogue : MonoBehaviour
     private int index;
     private bool coroutineEnCours = false;
 
-
+    private void Awake()
+    {
+        gameObject.SetActive(false);
+    }
     private void OnEnable()
     {
         textComponent.text = "";

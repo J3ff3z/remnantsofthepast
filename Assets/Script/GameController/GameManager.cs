@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    GameObject startPoint;
+    GameObject savePoint;
     [SerializeField] GameObject corpsePrefab;
 
     List<GameObject> corpseList;
@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        startPoint = transform.GetChild(0).gameObject;
+        savePoint = GameObject.Find("StartPoint");
         instance = this;
         corpseList = new List<GameObject>();
     }
@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
         GameObject newCorpse = Instantiate(corpsePrefab);
         newCorpse.transform.position = _currentPosition;
         corpseList.Add(newCorpse);
-        CharacterManager.Instance.Restart(startPoint.transform.position);
+        CharacterManager.Instance.Restart(savePoint.transform.position);
     }
 
     public void CleanCorpse()
@@ -39,6 +39,6 @@ public class GameManager : MonoBehaviour
 
     public void SwitchSavePoint(Vector2 position)
     {
-        transform.GetChild(0).position = position;
+        savePoint.transform.position = position+Vector2.up;
     }
 }
