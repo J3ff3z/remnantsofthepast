@@ -7,7 +7,6 @@ public class CameraManager : MonoBehaviour
 {
     [SerializeField]
     Vector3[] cameraZonePoints;
-    Vector3[] gizmoPoints;
     Vector2[] nearestPointForEachLine;
 
 
@@ -15,17 +14,17 @@ public class CameraManager : MonoBehaviour
     {
         Vector2 playerPosition = CharacterManager.Instance.transform.position;
         nearestPointForEachLine = new Vector2[cameraZonePoints.Length-1];
-        for (int i = 0; i < cameraZonePoints.Length -1; i++)
+        for (int i = 0; i < cameraZonePoints.Length -2; i++)
         {
-            nearestPointForEachLine[i] = NearestPointOnLine(cameraZonePoints[i], cameraZonePoints[i+1], playerPosition);
+            nearestPointForEachLine[i] = NearestPointInPlane(cameraZonePoints[i], cameraZonePoints[i + 1], cameraZonePoints[i + 2], playerPosition);
         }
 
-        Vector2 wantedPosition = NearestPointInVector(nearestPointForEachLine,  playerPosition);
+        Vector2 wantedPosition = NearestPointInArray(nearestPointForEachLine,  playerPosition);
         transform.position = new Vector3(wantedPosition.x, wantedPosition.y, -10);
     }
 
 
-    public Vector2 NearestPointInVector(Vector2[] vector, Vector2 point)
+    public Vector2 NearestPointInArray(Vector2[] vector, Vector2 point)
     {
         double distance = Double.MaxValue;
         Vector2 nearestPoint = vector[0];
@@ -47,6 +46,45 @@ public class CameraManager : MonoBehaviour
         return Math.Sqrt(Math.Pow((p2.x - p1.x), 2) + Math.Pow(p2.y - p1.y, 2));
     }
 
+
+
+    Vector2 NearestPointInPlane(Vector2 p1, Vector2 p2, Vector2 p3, Vector2 pObj)
+    {
+        Plane p = new Plane(p1,p2,p3);
+        Vector2 point = p.ClosestPointOnPlane(pObj);
+
+        if(PointInTriangle(point, p1, p2, p3))
+        {
+            return point;
+        }
+
+        Vector2[] points = new Vector2[3];
+        points[0] = NearestPointOnLine(p1, p2, point);
+        points[1] = NearestPointOnLine(p2, p3, point);
+        points[2] = NearestPointOnLine(p3, p1, point);
+
+        return NearestPointInArray(points, point);
+    }
+    float sign(Vector2 p1, Vector2 p2, Vector2 p3)
+    {
+        return (p1.x - p3.x) * (p2.y - p3.y) - (p2.x - p3.x) * (p1.y - p3.y);
+    }
+
+    bool PointInTriangle(Vector2 pt, Vector2 v1, Vector2 v2, Vector2 v3)
+    {
+        float d1, d2, d3;
+        bool has_neg, has_pos;
+
+        d1 = sign(pt, v1, v2);
+        d2 = sign(pt, v2, v3);
+        d3 = sign(pt, v3, v1);
+
+        has_neg = (d1 < 0) || (d2 < 0) || (d3 < 0);
+        has_pos = (d1 > 0) || (d2 > 0) || (d3 > 0);
+
+        return !(has_neg && has_pos);
+    }
+
     public Vector2 NearestPointOnLine(Vector2 linePoint1, Vector2 linePoint2, Vector2 point)
     {
         Vector2 vectorLine = linePoint1 - linePoint2;
@@ -60,7 +98,8 @@ public class CameraManager : MonoBehaviour
         {
             return nearestPoint;
         }
-        if(IsCBetweenAB(linePoint1,nearestPoint, linePoint2)){
+        if (IsCBetweenAB(linePoint1, nearestPoint, linePoint2))
+        {
             return linePoint2;
         }
         return linePoint1;
@@ -73,29 +112,39 @@ public class CameraManager : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        CameraPointToGizmoPoint();
-
         Gizmos.color = Color.green;
-        Gizmos.DrawLineList(gizmoPoints);
-    }
-
-    void CameraPointToGizmoPoint()
-    {
-        int length = cameraZonePoints.Length * 2;
-        gizmoPoints = new Vector3[length];
-        gizmoPoints[0] = cameraZonePoints[0];
-        Vector2 lastGizmo = gizmoPoints[0];
-        for(int i = 1; i < gizmoPoints.Length; i++)
+        for (int i = 0; i < cameraZonePoints.Length - 2; i++)
         {
-            if (i % 2 == 0)
-            {
-                gizmoPoints[i] = lastGizmo;
-            }
-            else
-            {
-                gizmoPoints[i] = cameraZonePoints[i/2];
-                lastGizmo = gizmoPoints[i];
-            }
+            DrawTriangle(cameraZonePoints[i], cameraZonePoints[i+1], cameraZonePoints[i+2]);
         }
     }
+
+    void DrawTriangle(Vector3 a, Vector3 b, Vector3 c)
+    {
+        Mesh m = new Mesh();
+
+        m.vertices = new Vector3[3]
+        {
+            a,
+            b,
+            c
+        };
+
+        m.triangles = new int[]
+        {
+            0, 1, 2
+        };
+
+        m.normals = new Vector3[]
+        {
+            Vector3.forward,
+            Vector3.forward,
+            Vector3.forward
+        };
+
+        Graphics.DrawMeshNow(m, Vector3.zero, Quaternion.identity);
+
+        DestroyImmediate(m);
+    }
+
 }

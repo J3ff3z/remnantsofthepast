@@ -1,4 +1,6 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class VictoryManager : MonoBehaviour
 {
@@ -6,8 +8,15 @@ public class VictoryManager : MonoBehaviour
     {
         if(other.gameObject.CompareTag("Player"))
         {
-            GameManager.Instance.DieHere(other.transform.position);
+            Debug.Log("Win");
+            StartCoroutine(ChangeScene());
         }
     }
 
+
+    IEnumerator ChangeScene()
+    {
+        yield return new WaitForSeconds(2);
+        SceneManager.LoadScene(1);
+    }
 }
