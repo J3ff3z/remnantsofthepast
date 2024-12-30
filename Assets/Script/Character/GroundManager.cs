@@ -30,8 +30,14 @@ public class GroundManager : MonoBehaviour
             colliders = Physics2D.OverlapCircleAll(new Vector2(transform.position.x, transform.position.y), radius);
             Trigger(increase);
         }
+        foreach (Collider2D collider in Physics2D.OverlapCircleAll(new Vector2(transform.position.x, transform.position.y), radius))
+        {
+            if (!collider.gameObject.CompareTag("Player"))
+            {
+                isGrounded = true;
+            }
+        }
     }
-
     void Trigger(bool increase)
     {
         foreach (Collider2D collider in colliders)

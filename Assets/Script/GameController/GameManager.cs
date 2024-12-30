@@ -39,6 +39,6 @@ public class GameManager : MonoBehaviour
 
     public void SwitchSavePoint(Vector2 position)
     {
-        transform.GetChild(0).position = position+Vector2.up;
+        savePoint.transform.position = position+Vector2.up;
     }
 }
